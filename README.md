@@ -15,7 +15,7 @@ yarn
 
 ## Proxy
 
-Support get proxy from ENV: http_proxy
+Support getting proxy from ENV: http_proxy
 
 ## Usage
 
