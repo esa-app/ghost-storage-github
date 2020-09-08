@@ -17,7 +17,9 @@ const RAW_GITHUB_URL = 'https://raw.githubusercontent.com'
 
 let proxyAgent = undefined
 if (process.env.http_proxy) {
-    proxyAgent = new HttpsProxyAgent(parse(process.env.http_proxy))
+    const proxy = parse(process.env.http_proxy)
+    proxyAgent = new HttpsProxyAgent(proxy)
+    console.log('ghost-storage-github use proxy:', proxy)
 }
 
 class GitHubStorage extends BaseStorage {
@@ -58,7 +60,7 @@ class GitHubStorage extends BaseStorage {
                     console.warn(`Abuse detected for request ${options.method} ${options.url}`)
                 }
             },
-            request: proxyAgent
+            request: { agent: proxyAgent }
         })
     }
 
