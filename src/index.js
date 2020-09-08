@@ -6,13 +6,19 @@ import fs from 'fs'
 import BaseStorage from 'ghost-storage-base'
 import isUrl from 'is-url'
 import path from 'path'
-import { URL } from 'url'
+import { URL, parse } from 'url'
+import HttpsProxyAgent from 'https-proxy-agent'
 import * as utils from './utils'
 
 const ExtendedOctokit = Octokit.plugin([retry, throttling])
 const readFile = Promise.promisify(fs.readFile)
 
 const RAW_GITHUB_URL = 'https://raw.githubusercontent.com'
+
+let proxyAgent = undefined
+if (process.env.http_proxy) {
+    proxyAgent = new HttpsProxyAgent(parse(process.env.http_proxy))
+}
 
 class GitHubStorage extends BaseStorage {
     constructor(config) {
@@ -52,6 +58,7 @@ class GitHubStorage extends BaseStorage {
                     console.warn(`Abuse detected for request ${options.method} ${options.url}`)
                 }
             },
+            request: proxyAgent
         })
     }
 

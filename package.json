@@ -32,6 +32,7 @@
     "@octokit/rest": "^17.1.1",
     "bluebird": "^3.7.2",
     "ghost-storage-base": "^0.0.4",
+    "https-proxy-agent": "^5.0.0",
     "is-url": "^1.2.4"
   },
   "devDependencies": {

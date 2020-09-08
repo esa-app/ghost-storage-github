@@ -5,11 +5,17 @@ GitHub storage adapter for Ghost. Recommended as a completely free storage solut
 ## Installation
 
 ```bash
-cd /path/to/your/ghost/installation
-npm install ghost-storage-github
-mkdir -p content/adapters/storage
-cp -r node_modules/ghost-storage-github content/adapters/storage/ghost-storage-github
+cd /var/lib/ghost/content
+mkdir -p adapters/storage
+cd adapters/storage
+git clone https://github.com/esa-app/ghost-storage-github.git
+cd ghost-storage-github
+yarn
 ```
+
+## Proxy
+
+Support get proxy from ENV: http_proxy
 
 ## Usage
 
