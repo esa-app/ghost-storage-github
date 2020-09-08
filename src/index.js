@@ -38,12 +38,17 @@ class GitHubStorage extends BaseStorage {
         this.owner = process.env.GHOST_GITHUB_OWNER || owner
         this.repo = process.env.GHOST_GITHUB_REPO || repo
         this.branch = process.env.GHOST_GITHUB_BRANCH || branch || 'master'
+        this.jsdelivr = process.env.GHOST_GITHUB_JSDELIVR || false
 
         // Optional config
         const baseUrl = utils.removeTrailingSlashes(process.env.GHOST_GITHUB_BASE_URL || config.baseUrl || '')
-        this.baseUrl = isUrl(baseUrl)
-            ? baseUrl
-            : `${RAW_GITHUB_URL}/${this.owner}/${this.repo}/${this.branch}`
+        if (!this.jsdelivr) {
+            this.baseUrl = isUrl(baseUrl)
+                ? baseUrl
+                : `${RAW_GITHUB_URL}/${this.owner}/${this.repo}/${this.branch}`
+        } else {
+            this.baseUrl = `https://cdn.jsdelivr.net/gh/${this.owner}/${this.repo}@${this.branch}`
+        }
         this.destination = process.env.GHOST_GITHUB_DESTINATION || destination || '/'
         this.useRelativeUrls = process.env.GHOST_GITHUB_USE_RELATIVE_URLS === 'true' || config.useRelativeUrls || false
 
