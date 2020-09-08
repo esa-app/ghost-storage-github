@@ -21,7 +21,7 @@ if (process.env.http_proxy) {
 }
 
 class GitHubStorage extends BaseStorage {
-    constructor(config) {
+    constructor(config = {}) {
         super()
 
         const {
